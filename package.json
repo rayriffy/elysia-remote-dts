@@ -1,29 +1,29 @@
 {
-  "name": "@rayriffy/quick-npm",
-  "version": "0.0.2",
+  "name": "elysia-remote-dts",
+  "version": "0.0.1",
   "author": "Phumrapee Limpianchop <mail@rayriffy.com>",
   "description": "Quick start template for publishing NPM package.",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/cjs/index.js"
     }
   },
   "repository": {
-    "url": "git+https://github.com/rayriffy/quick-npm"
+    "url": "git+https://github.com/rayriffy/elysia-remote-dts"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
   "files": [
-    "src",
     "dist"
   ],
   "scripts": {
@@ -31,19 +31,26 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "dev": "bun run build --watch",
-    "build": "tsup",
-    "prepare": "bun run build",
+    "build": "bun run scripts/build.ts",
     "lint": "biome check",
     "format": "biome check --write"
   },
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "debug": "^4.4.0",
+    "get-tsconfig": "^4.10.0",
+    "oxc-transform": "^0.67.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "2.29.2",
     "@tsconfig/node22": "22.0.1",
+    "@types/bun": "^1.2.11",
+    "@types/debug": "^4.1.12",
+    "@types/node": "^22.15.3",
+    "elysia": "^1.2.25",
     "tsup": "8.4.0",
-    "typescript": "5.8.3",
+    "typescript": "^5.8.3",
     "vitest": "3.1.2"
   }
 }
