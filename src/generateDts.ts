@@ -16,10 +16,10 @@ const debug = Debug('elysia-remote-dts:generateDts')
  */
 export async function generateDts(
   filePath: string,
-  options?: Options
+  options: Options = {}
 ): Promise<string> {
   debug('resolving dts options')
-  const resolved = resolveOptions(options ?? {})
+  const resolved = resolveOptions(options)
   debug('resolved dts options %o', resolved)
 
   // Ensure the path is absolute

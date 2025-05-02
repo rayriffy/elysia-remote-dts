@@ -1,6 +1,6 @@
 {
   "name": "elysia-remote-dts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Phumrapee Limpianchop <mail@rayriffy.com>",
   "description": "Quick start template for publishing NPM package.",
   "license": "MIT",
