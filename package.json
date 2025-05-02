@@ -1,0 +1,49 @@
+{
+  "name": "@rayriffy/quick-npm",
+  "version": "0.0.2",
+  "author": "Phumrapee Limpianchop <mail@rayriffy.com>",
+  "description": "Quick start template for publishing NPM package.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "repository": {
+    "url": "git+https://github.com/rayriffy/quick-npm"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow bun",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "dev": "bun run build --watch",
+    "build": "tsup",
+    "prepare": "bun run build",
+    "lint": "biome check",
+    "format": "biome check --write"
+  },
+  "keywords": [],
+  "dependencies": {},
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@changesets/cli": "2.29.2",
+    "@tsconfig/node22": "22.0.1",
+    "tsup": "8.4.0",
+    "typescript": "5.8.3",
+    "vitest": "3.1.2"
+  }
+}
