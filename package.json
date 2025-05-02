@@ -5,15 +5,13 @@
   "description": "Quick start template for publishing NPM package.",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/index.js"
     }
   },
   "repository": {
@@ -31,7 +29,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "dev": "bun run build --watch",
-    "build": "bun run scripts/build.ts",
+    "build": "tsup",
     "lint": "biome check",
     "format": "biome check --write"
   },
