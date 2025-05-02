@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "latest",
+    "elysia-remote-dts": "https://pkg.pr.new/rayriffy/elysia-remote-dts@ff9f948",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}

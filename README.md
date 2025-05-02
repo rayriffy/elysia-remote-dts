@@ -51,4 +51,5 @@ To be documented
 
 ## Known Limitations
 
-1. Somehow, types are always exposed as `any` if Docker runtime is Distroless. Recomended to go with `oven/bun` as base image.
+1. Sometimes emitting types can be `null`, this happens only in some runtime environment (So far, Distroless). I would recommended `oven/bun`, or `oven/bun:alpine` as base image.
+2. Be sure that `typescript` package is available when running. It's no longer `devDependencies`.
