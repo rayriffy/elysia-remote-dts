@@ -2,6 +2,10 @@
 
 A plugin that provide `.d.ts` types remotely for Eden Treaty to consume.
 
+[![NPM Version](https://img.shields.io/npm/v/elysia-remote-dts)](https://www.npmjs.com/package/elysia-remote-dts)
+[![NPM Downloads](https://img.shields.io/npm/dw/elysia-remote-dts)](https://www.npmjs.com/package/elysia-remote-dts)
+[![NPM License](https://img.shields.io/npm/l/elysia-remote-dts)](https://www.npmjs.com/package/elysia-remote-dts)
+
 Imagine in this scenario, you deploy an Elysia server remotely somewhere. And you also want to provide the benefit of end-to-end type safety by using [Eden Treaty](https://elysiajs.com/eden/overview#eden-treaty-recommended). But external developer may not have a direct access to source code to pull `typeof app` types out from your server maybe because.
 
 - Your server is closed-source.
@@ -42,6 +46,7 @@ curl -o server.ts https://<remote-url>/server.d.ts
 import { treaty } from '@elysiajs/eden'
 import type { App } from './server'
 
+// frontend project should already have both elysia, and @elysiajs/eden installed
 export const app = treaty<App>('https://<remote-url>')
 ```
 
