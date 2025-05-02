@@ -52,7 +52,41 @@ export const app = treaty<App>('https://<remote-url>')
 
 ## Configuration
 
-To be documented
+The `dts` plugin accepts the following configuration options:
+
+```ts
+dts(entryPoint, options)
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `cwd` | `string` | Current directory | The directory where the plugin will look for the `tsconfig.json` file. |
+| `dtsInput` | `boolean` | `false` | When entries are `.d.ts` files (instead of `.ts` files), this option should be set to `true`. If enabled, the plugin will skip generating a `.d.ts` file for the entry point. |
+| `emitDtsOnly` | `boolean` | `false` | When `true`, the plugin will only emit `.d.ts` files and remove all other chunks. Useful when generating `d.ts` files for CommonJS format as part of a separate build process. |
+| `tsconfig` | `string \| boolean` | `"tsconfig.json"` | The path to the `tsconfig.json` file. When set to `false`, any `tsconfig.json` file will be ignored. |
+| `compilerOptions` | `object` | `{}` | The `compilerOptions` for the TypeScript compiler. See [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html). |
+| `isolatedDeclarations` | `boolean \| object` | `false` | When `true`, the plugin will generate `.d.ts` files using `oxc-transform`, which is much faster than the TypeScript compiler. This option is enabled automatically when `isolatedDeclarations` in `compilerOptions` is set to `true`. |
+| `sourcemap` | `boolean` | `false` | When `true`, the plugin will generate declaration maps (`.d.ts.map` files) for `.d.ts` files. |
+| `resolve` | `boolean \| (string \| RegExp)[]` | `false` | Resolve external types used in `.d.ts` files from `node_modules`. Can be a boolean or an array of strings/RegExp patterns. |
+| `resolvePaths` | `boolean` | `false` | When `true`, the plugin will resolve `paths` in `tsconfig.json`. This option is enabled automatically when `paths` is set in `compilerOptions`. |
+
+### Example with Options
+
+```ts
+import { Elysia } from 'elysia'
+import { dts } from 'elysia-remote-dts'
+
+const app = new Elysia().use(
+  dts('./src/index.ts', {
+    tsconfig: './tsconfig.json',
+    compilerOptions: {
+      strict: true
+    }
+  })
+).listen(3000)
+
+export type App = typeof app;
+```
 
 ## Known Limitations
 
