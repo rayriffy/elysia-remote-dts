@@ -1,6 +1,6 @@
 {
   "name": "elysia-remote-dts",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "author": "Phumrapee Limpianchop <mail@rayriffy.com>",
   "description": "A plugin that provide .d.ts types remotely for Eden Treaty to consume.",
   "license": "MIT",
@@ -21,7 +21,9 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "preinstall": "npx only-allow bun",
     "test": "vitest",
