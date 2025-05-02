@@ -21,9 +21,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "preinstall": "npx only-allow bun",
     "test": "vitest",

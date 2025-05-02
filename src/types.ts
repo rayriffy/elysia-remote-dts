@@ -1,5 +1,5 @@
-import type { TsConfigJson } from "get-tsconfig"
-import type { IsolatedDeclarationsOptions } from "oxc-transform"
+import type { TsConfigJson } from 'get-tsconfig'
+import type { IsolatedDeclarationsOptions } from 'oxc-transform'
 
 export interface Options {
   /**

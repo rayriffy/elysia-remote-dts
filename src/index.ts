@@ -1,9 +1,9 @@
 import { Elysia } from 'elysia'
-import type { Options } from "./types";
-import { generateDts } from './generateDts';
+import { generateDts } from './generateDts'
+import type { Options } from './types'
 
 export const dts = (filePath: string, options: Options) => {
-  let dts: string = ''
+  let dts = ''
 
   return new Elysia()
     .onStart(async () => {

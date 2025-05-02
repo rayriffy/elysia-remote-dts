@@ -1,18 +1,34 @@
-# quick-npm
+# Elysia remote DTS
 
-Quick start template to rapidly develop NPM packages with speed, and automations.
+A plugin that provide `.d.ts` types remotely for external devs to consume.
+
+Imagine in this scenario, you deploy an Elysia server remotely somewhere. And you also want to provide the benefit of end-to-end type safety by using [Eden Treaty](https://elysiajs.com/eden/overview#eden-treaty-recommended). But external developer may not have a direct access to source code to pull `typeof app` types out from your server maybe because.
+
+- Your server is closed-source.
+- Frontend locate somewhere else that make types inaccessible.
+
+This plugin will attempt to expose types remotely, and provide remote type to Eden Treaty to consume somehow.
+
+> [!NOTE]  
+> Part of the code that responsible for runtime type-generation is copied from project [rolldown-plugin-dts](https://github.com/sxzz/rolldown-plugin-dts), what difference is this `generateDts` utility is completely dependent, and decoupled from rolldown lifecycle. Full credit should go to them, I just port some functionality that hoped to be cool stuff on Elysia ecosystem.
 
 ## Install
 
-```bash
-bun add @rayriffy/quick-npm
+```
+bun add elysia-remote-dts
 ```
 
-## Setting up
+## Usage
 
-1. Allow GitHub Actions to create pull request
-2. Generate NPM authotization token into `NPM_TOKEN` secret
+```ts
+import { Elysia } from 'elysia'
+import { dts } from 'elysia-remote-dts'
 
-## Publishing
+new Elysia().use(dts('./src/index.ts')).listen(3000)
+```
 
-This repository has been configured to automatically publish NPM packages by [Changesets](https://github.com/changesets/changesets). Run `bun changeset` command to publishing your changes before commit.
+Then types should be available at `/server.d.ts`
+
+## Configuration
+
+To be documented

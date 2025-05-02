@@ -3,10 +3,10 @@ import Debug from 'debug'
 import { regexNodeModules } from './filename'
 
 import type { TsConfigJson } from 'get-tsconfig'
-import type { DtsMap } from './types'
 import type Ts from 'typescript'
+import type { DtsMap } from './types'
 
-const debug = Debug('elysia-remote-eden:tsc')
+const debug = Debug('elysia-remote-dts:tsc')
 
 let ts: typeof Ts
 let formatHost: Ts.FormatDiagnosticsHost
@@ -20,8 +20,8 @@ export function initTs(): void {
     getCurrentDirectory: () => ts.sys.getCurrentDirectory(),
     getNewLine: () => ts.sys.newLine,
     getCanonicalFileName: ts.sys.useCaseSensitiveFileNames
-      ? (f) => f
-      : (f) => f.toLowerCase(),
+      ? f => f
+      : f => f.toLowerCase(),
   }
 
   debug(`loaded typescript: ${ts.version}`)
@@ -50,9 +50,9 @@ export function createOrGetTsModule(
   compilerOptions: TsConfigJson.CompilerOptions | undefined,
   id: string,
   isEntry: boolean,
-  dtsMap: DtsMap,
+  dtsMap: DtsMap
 ): TscModule {
-  const program = programs.find((program) => {
+  const program = programs.find(program => {
     if (isEntry) {
       return program.getRootFileNames().includes(id)
     }
@@ -76,7 +76,7 @@ export function createOrGetTsModule(
 function createTsProgram(
   compilerOptions: TsConfigJson.CompilerOptions | undefined,
   dtsMap: DtsMap,
-  id: string,
+  id: string
 ): TscModule {
   const overrideCompilerOptions: Ts.CompilerOptions =
     ts.convertCompilerOptionsFromJson(compilerOptions, '.').options
@@ -88,7 +88,7 @@ function createTsProgram(
 
   const host = ts.createCompilerHost(options, true)
   const { readFile: _readFile, fileExists: _fileExists } = host
-  host.fileExists = (fileName) => {
+  host.fileExists = fileName => {
     const module = getTsModule(dtsMap, fileName)
     if (module) return true
     if (debug.enabled && !regexNodeModules.test(fileName)) {
@@ -96,7 +96,7 @@ function createTsProgram(
     }
     return _fileExists(fileName)
   }
-  host.readFile = (fileName) => {
+  host.readFile = fileName => {
     const module = getTsModule(dtsMap, fileName)
     if (module) return module.code
     if (debug.enabled && !regexNodeModules.test(fileName)) {
@@ -106,12 +106,12 @@ function createTsProgram(
   }
 
   const entries = Array.from(dtsMap.values())
-    .filter((v) => v.isEntry)
-    .map((v) => v.id)
+    .filter(v => v.isEntry)
+    .map(v => v.id)
   const program = ts.createProgram(
     Array.from(new Set([id, ...entries])),
     options,
-    host,
+    host
   )
   const sourceFile = program.getSourceFile(id)
   if (!sourceFile) {
@@ -147,7 +147,7 @@ export function tscEmit(module: TscModule): {
     true,
     undefined,
     // @ts-expect-error private API: forceDtsEmit
-    true,
+    true
   )
   if (emitSkipped && diagnostics.length) {
     return { error: ts.formatDiagnostics(diagnostics, formatHost) }
@@ -156,7 +156,7 @@ export function tscEmit(module: TscModule): {
 }
 
 function getTsModule(dtsMap: DtsMap, tsId: string) {
-  const module = Array.from(dtsMap.values()).find((dts) => dts.id === tsId)
+  const module = Array.from(dtsMap.values()).find(dts => dts.id === tsId)
   if (!module) return
   return module
 }
