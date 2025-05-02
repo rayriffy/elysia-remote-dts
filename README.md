@@ -24,11 +24,31 @@ bun add elysia-remote-dts
 import { Elysia } from 'elysia'
 import { dts } from 'elysia-remote-dts'
 
-new Elysia().use(dts('./src/index.ts')).listen(3000)
+const app = new Elysia().use(dts('./src/index.ts')).listen(3000)
+
+// Be sure to export type for plugin to consume as well.
+export type App = typeof app;
 ```
 
-Then types should be available at `/server.d.ts`
+Then types should be available at `/server.d.ts`.
+
+Due to limitations with [Triple-Slash Directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html), types cannot be directly consumed from a remote URL ([tracking issue](https://github.com/microsoft/TypeScript/issues/28985)). For frontend projects, you'll need to first download the type declaration file from this path before using it with Eden.
+
+```
+curl -o server.ts https://<remote-url>/server.d.ts
+```
+
+```ts
+import { treaty } from '@elysiajs/eden'
+import type { App } from './server'
+
+export const app = treaty<App>('https://<remote-url>')
+```
 
 ## Configuration
 
 To be documented
+
+## Known Limitations
+
+1. Somehow, types are always exposed as `any` if Docker runtime is Distroless. Recomended to go with `oven/bun` as base image.
