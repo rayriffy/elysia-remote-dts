@@ -2,7 +2,7 @@
   "name": "elysia-remote-dts",
   "version": "0.0.2",
   "author": "Phumrapee Limpianchop <mail@rayriffy.com>",
-  "description": "Quick start template for publishing NPM package.",
+  "description": "A plugin that provide .d.ts types remotely for Eden Treaty to consume.",
   "license": "MIT",
   "type": "module",
   "module": "./dist/index.js",

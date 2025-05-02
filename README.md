@@ -1,6 +1,6 @@
 # Elysia remote DTS
 
-A plugin that provide `.d.ts` types remotely for external devs to consume.
+A plugin that provide `.d.ts` types remotely for Eden Treaty to consume.
 
 Imagine in this scenario, you deploy an Elysia server remotely somewhere. And you also want to provide the benefit of end-to-end type safety by using [Eden Treaty](https://elysiajs.com/eden/overview#eden-treaty-recommended). But external developer may not have a direct access to source code to pull `typeof app` types out from your server maybe because.
 
