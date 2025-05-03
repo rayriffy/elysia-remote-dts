@@ -14,13 +14,6 @@ export interface Options {
   dtsInput?: boolean
 
   /**
-   * When `true`, the plugin will only emit `.d.ts` files and remove all other chunks.
-   *
-   * This feature is particularly beneficial when you need to generate `d.ts` files for the CommonJS format as part of a separate build process.
-   */
-  emitDtsOnly?: boolean
-
-  /**
    * The path to the `tsconfig.json` file.
    *
    * When set to `false`, the plugin will ignore any `tsconfig.json` file.
@@ -56,6 +49,7 @@ export type OptionsResolved = Overwrite<
     tsconfig: string | undefined
     isolatedDeclarations: false
     sourcemap: false
+    emitDtsOnly: false
   }
 >
 

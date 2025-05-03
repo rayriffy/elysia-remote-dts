@@ -62,7 +62,6 @@ dts(entryPoint, options)
 |--------|------|---------|-------------|
 | `cwd` | `string` | Current directory | The directory where the plugin will look for the `tsconfig.json` file. |
 | `dtsInput` | `boolean` | `false` | When entries are `.d.ts` files (instead of `.ts` files), this option should be set to `true`. If enabled, the plugin will skip generating a `.d.ts` file for the entry point. |
-| `emitDtsOnly` | `boolean` | `false` | When `true`, the plugin will only emit `.d.ts` files and remove all other chunks. Useful when generating `d.ts` files for CommonJS format as part of a separate build process. |
 | `tsconfig` | `string \| boolean` | `"tsconfig.json"` | The path to the `tsconfig.json` file. When set to `false`, any `tsconfig.json` file will be ignored. |
 | `compilerOptions` | `object` | `{}` | The `compilerOptions` for the TypeScript compiler. See [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html). |
 | `resolve` | `boolean \| (string \| RegExp)[]` | `false` | Resolve external types used in `.d.ts` files from `node_modules`. Can be a boolean or an array of strings/RegExp patterns. |

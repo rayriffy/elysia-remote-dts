@@ -7,7 +7,6 @@ export function resolveOptions({
   tsconfig,
   compilerOptions = {},
   dtsInput = false,
-  emitDtsOnly = false,
   resolve = false,
   resolvePaths,
 }: Options): OptionsResolved {
@@ -39,7 +38,7 @@ export function resolveOptions({
     isolatedDeclarations: false,
     sourcemap: false,
     dtsInput,
-    emitDtsOnly,
+    emitDtsOnly: false,
     resolve,
     resolvePaths: resolvePaths ?? !!compilerOptions?.paths,
   }
