@@ -37,11 +37,6 @@ export interface Options {
    */
   compilerOptions?: TsConfigJson.CompilerOptions
 
-  /**
-   * When `true`, the plugin will generate declaration maps for `.d.ts` files.
-   */
-  sourcemap?: boolean
-
   /** Resolve external types used in dts files from `node_modules` */
   resolve?: boolean | (string | RegExp)[]
 
@@ -60,6 +55,7 @@ export type OptionsResolved = Overwrite<
   {
     tsconfig: string | undefined
     isolatedDeclarations: false
+    sourcemap: false
   }
 >
 

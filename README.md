@@ -65,7 +65,6 @@ dts(entryPoint, options)
 | `emitDtsOnly` | `boolean` | `false` | When `true`, the plugin will only emit `.d.ts` files and remove all other chunks. Useful when generating `d.ts` files for CommonJS format as part of a separate build process. |
 | `tsconfig` | `string \| boolean` | `"tsconfig.json"` | The path to the `tsconfig.json` file. When set to `false`, any `tsconfig.json` file will be ignored. |
 | `compilerOptions` | `object` | `{}` | The `compilerOptions` for the TypeScript compiler. See [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html). |
-| `sourcemap` | `boolean` | `false` | When `true`, the plugin will generate declaration maps (`.d.ts.map` files) for `.d.ts` files. |
 | `resolve` | `boolean \| (string \| RegExp)[]` | `false` | Resolve external types used in `.d.ts` files from `node_modules`. Can be a boolean or an array of strings/RegExp patterns. |
 | `resolvePaths` | `boolean` | `false` | When `true`, the plugin will resolve `paths` in `tsconfig.json`. This option is enabled automatically when `paths` is set in `compilerOptions`. |
 

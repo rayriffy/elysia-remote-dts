@@ -6,7 +6,6 @@ export function resolveOptions({
   cwd = process.cwd(),
   tsconfig,
   compilerOptions = {},
-  sourcemap,
   dtsInput = false,
   emitDtsOnly = false,
   resolve = false,
@@ -30,15 +29,15 @@ export function resolveOptions({
     tsconfig = undefined
   }
 
-  sourcemap ??= !!compilerOptions.declarationMap
-  compilerOptions.declarationMap = sourcemap
+  // Always set declarationMap to false since we removed the sourcemap option
+  compilerOptions.declarationMap = false
 
   return {
     cwd,
     tsconfig: typeof tsconfig === 'boolean' ? undefined : tsconfig,
     compilerOptions,
     isolatedDeclarations: false,
-    sourcemap,
+    sourcemap: false,
     dtsInput,
     emitDtsOnly,
     resolve,
