@@ -16,3 +16,5 @@ export const dts = (filePath: string, options?: Options) => {
       return dts
     })
 }
+
+export type { Options }
