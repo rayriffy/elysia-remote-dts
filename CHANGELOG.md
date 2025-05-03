@@ -1,5 +1,14 @@
 # @rayriffy/quick-npm
 
+## 1.0.1
+
+### Patch Changes
+
+- eed8c71: remove option for `emitDtsOnly`
+- e4afefd: remove option for `isolatedDeclaration`
+- 9daec5f: remove option for `sourcemap`
+- c01da85: mark typescript as peerDependencies
+
 ## 1.0.0
 
 ### Major Changes
