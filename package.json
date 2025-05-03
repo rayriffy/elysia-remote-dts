@@ -31,21 +31,25 @@
     "lint": "biome check",
     "format": "biome check --write"
   },
-  "keywords": [],
+  "keywords": ["elysia", "dts", "d.ts", "remote", "remote-dts", "remote-d.ts"],
   "dependencies": {
-    "debug": "^4.4.0",
-    "get-tsconfig": "^4.10.0"
+    "debug": "4.4.0",
+    "get-tsconfig": "4.10.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "2.29.2",
     "@tsconfig/node22": "22.0.1",
     "@types/bun": "^1.2.11",
-    "@types/debug": "^4.1.12",
-    "@types/node": "^22.15.3",
-    "elysia": "^1.2.25",
+    "@types/debug": "4.1.12",
+    "@types/node": "22.15.3",
+    "elysia": "1.2.25",
     "tsup": "8.4.0",
-    "typescript": "^5.8.3",
+    "typescript": "5.8.3",
     "vitest": "3.1.2"
+  },
+  "peerDependencies": {
+    "elysia": ">= 1.0.0",
+    "typescript": ">=5"
   }
 }
