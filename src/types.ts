@@ -1,5 +1,4 @@
 import type { TsConfigJson } from 'get-tsconfig'
-import type { IsolatedDeclarationsOptions } from 'oxc-transform'
 
 export interface Options {
   /**
@@ -39,16 +38,6 @@ export interface Options {
   compilerOptions?: TsConfigJson.CompilerOptions
 
   /**
-   * When `true`, the plugin will generate `.d.ts` files using `oxc-transform`,
-   * which is blazingly faster than `typescript` compiler.
-   *
-   * This option is enabled when `isolatedDeclarations` in `compilerOptions` is set to `true`.
-   */
-  isolatedDeclarations?:
-    | boolean
-    | Omit<IsolatedDeclarationsOptions, 'sourcemap'>
-
-  /**
    * When `true`, the plugin will generate declaration maps for `.d.ts` files.
    */
   sourcemap?: boolean
@@ -70,7 +59,7 @@ export type OptionsResolved = Overwrite<
   Required<Options>,
   {
     tsconfig: string | undefined
-    isolatedDeclarations: IsolatedDeclarationsOptions | false
+    isolatedDeclarations: false
   }
 >
 

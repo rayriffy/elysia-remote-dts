@@ -21,9 +21,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "preinstall": "npx only-allow bun",
     "test": "vitest",
@@ -36,8 +34,7 @@
   "keywords": [],
   "dependencies": {
     "debug": "^4.4.0",
-    "get-tsconfig": "^4.10.0",
-    "oxc-transform": "^0.67.0"
+    "get-tsconfig": "^4.10.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

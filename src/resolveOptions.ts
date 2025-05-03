@@ -6,7 +6,6 @@ export function resolveOptions({
   cwd = process.cwd(),
   tsconfig,
   compilerOptions = {},
-  isolatedDeclarations,
   sourcemap,
   dtsInput = false,
   emitDtsOnly = false,
@@ -34,23 +33,11 @@ export function resolveOptions({
   sourcemap ??= !!compilerOptions.declarationMap
   compilerOptions.declarationMap = sourcemap
 
-  if (isolatedDeclarations == null) {
-    isolatedDeclarations = !!compilerOptions?.isolatedDeclarations
-  }
-  if (isolatedDeclarations === true) {
-    isolatedDeclarations = {}
-  }
-  if (isolatedDeclarations) {
-    isolatedDeclarations.stripInternal ??= !!compilerOptions?.stripInternal
-    // @ts-expect-error omitted in user options
-    isolatedDeclarations.sourcemap = !!compilerOptions.declarationMap
-  }
-
   return {
     cwd,
     tsconfig: typeof tsconfig === 'boolean' ? undefined : tsconfig,
     compilerOptions,
-    isolatedDeclarations,
+    isolatedDeclarations: false,
     sourcemap,
     dtsInput,
     emitDtsOnly,

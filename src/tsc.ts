@@ -126,12 +126,12 @@ function createTsProgram(
 
 export function tscEmit(module: TscModule): {
   code?: string
-  map?: any
+  map?: unknown
   error?: string
 } {
   const { program, file } = module
   let dtsCode: string | undefined
-  let map: any
+  let map: unknown
   const { emitSkipped, diagnostics } = program.emit(
     file,
     (fileName, code) => {

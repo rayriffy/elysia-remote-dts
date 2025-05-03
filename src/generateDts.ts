@@ -1,6 +1,6 @@
 import path from 'node:path'
 import Debug from 'debug'
-import { isolatedDeclaration as oxcIsolatedDeclaration } from 'oxc-transform'
+import type Ts from 'typescript'
 import { filenameTsToDts } from './filename'
 import { resolveOptions } from './resolveOptions'
 import { createOrGetTsModule, initTs, tscEmit } from './tsc'
@@ -41,46 +41,28 @@ export async function generateDts(
 
     // Generate DTS content
     let dtsCode = ''
-    let map: any
 
-    if (resolved.isolatedDeclarations) {
-      const result = oxcIsolatedDeclaration(
-        absolutePath,
-        code,
-        resolved.isolatedDeclarations
-      )
-      if (result.errors.length) {
-        const [error] = result.errors
-        throw new Error(
-          `Error generating DTS: ${error.message}\n${error.codeframe || ''}`
-        )
-      }
-      dtsCode = result.code
-    } else {
-      // Initialize the TypeScript compiler if not using isolated declarations
-      if (!resolved.isolatedDeclarations) {
-        initTs()
-      }
+    // Initialize the TypeScript compiler
+    initTs()
 
-      // Create programs array for storing TypeScript programs
-      const programs: any[] = []
+    // Create programs array for storing TypeScript programs
+    const programs: Ts.Program[] = []
 
-      // Create or get TypeScript module
-      const module = createOrGetTsModule(
-        programs,
-        resolved.compilerOptions,
-        absolutePath,
-        true,
-        dtsMap
-      )
+    // Create or get TypeScript module
+    const module = createOrGetTsModule(
+      programs,
+      resolved.compilerOptions,
+      absolutePath,
+      true,
+      dtsMap
+    )
 
-      // Emit TypeScript declarations
-      const result = tscEmit(module)
-      if (result.error) {
-        throw new Error(`Error generating DTS: ${result.error}`)
-      }
-      dtsCode = result.code || ''
+    // Emit TypeScript declarations
+    const result = tscEmit(module)
+    if (result.error) {
+      throw new Error(`Error generating DTS: ${result.error}`)
     }
+    dtsCode = result.code || ''
 
     return dtsCode
   } catch (error) {
