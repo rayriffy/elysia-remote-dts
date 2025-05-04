@@ -1,5 +1,12 @@
 # @rayriffy/quick-npm
 
+## 1.0.2
+
+### Patch Changes
+
+- 7e81b86: expose `Options` type at entrypoint
+- 1dcf1dd: return content-type as typescript
+
 ## 1.0.1
 
 ### Patch Changes
