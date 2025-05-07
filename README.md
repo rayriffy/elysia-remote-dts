@@ -89,3 +89,4 @@ export type App = typeof app;
 
 1. Sometimes emitting types can be `null`, this happens only in some runtime environment (So far, Distroless). I would recommended `oven/bun`, or `oven/bun:alpine` as base image.
 2. Be sure that `typescript` package is available when running. It's no longer `devDependencies`.
+3. For all elysia instances, and chaining controller. It's recomended to chain your routes instead of calling `controller.<METHOD>` after each new line since it's will not considered into type compliation by typescript. ([example](https://github.com/rayriffy/dts-chaining-repro/commit/fb4702ddc11a3973bf51eac753c18c1d606eae4b))
