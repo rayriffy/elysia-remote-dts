@@ -1,5 +1,11 @@
 # @rayriffy/quick-npm
 
+## 1.0.3
+
+### Patch Changes
+
+- eae1481: add option to change path to get server types
+
 ## 1.0.2
 
 ### Patch Changes
