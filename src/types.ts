@@ -39,6 +39,13 @@ export interface Options {
    * This option is enabled when `paths` is set in `compilerOptions`.
    */
   resolvePaths?: boolean
+
+  /**
+   * The path where the type definitions will be served.
+   * 
+   * @default `/server.d.ts`
+   */
+  dtsPath?: string
 }
 
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U

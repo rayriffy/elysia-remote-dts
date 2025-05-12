@@ -36,12 +36,18 @@ const app = new Elysia().use(dts('./src/index.ts')).listen(3000)
 export type App = typeof app;
 ```
 
-Types will then be available at `/server.d.ts`.
+Types will then be available at `/server.d.ts` by default, or at the path specified in the `dtsPath` option.
 
 Due to limitations with [Triple-Slash Directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html), types cannot be directly consumed from a remote URL ([tracking issue](https://github.com/microsoft/TypeScript/issues/28985)). For frontend projects, you'll need to first download the type declaration file before using it with Eden:
 
 ```
 curl -o server.ts https://<remote-url>/server.d.ts
+```
+
+If you've customized the path:
+
+```
+curl -o server.ts https://<remote-url>/your-custom-path
 ```
 
 Then use it in your frontend code:
@@ -70,6 +76,7 @@ dts(entryPoint, options)
 | `compilerOptions` | `object` | `{}` | The `compilerOptions` for the TypeScript compiler. See [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html). |
 | `resolve` | `boolean \| (string \| RegExp)[]` | `false` | Resolve external types used in `.d.ts` files from `node_modules`. Can be a boolean or an array of strings/RegExp patterns. |
 | `resolvePaths` | `boolean` | `false` | When `true`, the plugin will resolve `paths` in `tsconfig.json`. This option is enabled automatically when `paths` is set in `compilerOptions`. |
+| `dtsPath` | `string` | `"/server.d.ts"` | The path where the type definitions will be served. |
 
 ### Example with Options
 
@@ -82,7 +89,8 @@ const app = new Elysia().use(
     tsconfig: './tsconfig.json',
     compilerOptions: {
       strict: true
-    }
+    },
+    dtsPath: '/types.d.ts'
   })
 ).listen(3000)
 
