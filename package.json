@@ -29,7 +29,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "dev": "bun run build --watch",
-    "build": "tsup",
+    "build": "tsdown",
     "lint": "biome check",
     "format": "biome check --write"
   },
@@ -53,7 +53,7 @@
     "@types/debug": "4.1.12",
     "@types/node": "22.15.3",
     "elysia": "1.2.25",
-    "tsup": "8.4.0",
+    "tsdown": "0.12.3",
     "typescript": "5.8.3",
     "vitest": "3.1.2"
   },
