@@ -1,5 +1,11 @@
 # @rayriffy/quick-npm
 
+## 1.0.4
+
+### Patch Changes
+
+- cde2cd8: package now bundled by tsdown
+
 ## 1.0.3
 
 ### Patch Changes
