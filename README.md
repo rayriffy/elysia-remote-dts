@@ -16,13 +16,15 @@ Imagine this scenario: You've deployed an Elysia server remotely and want to pro
 This plugin solves this problem by exposing types remotely and providing them to Eden Treaty for consumption.
 
 > [!NOTE]  
-> The code responsible for runtime type-generation is adapted from [rolldown-plugin-dts](https://github.com/sxzz/rolldown-plugin-dts). The difference is that our `generateDts` utility is completely independent and decoupled from the rolldown lifecycle. Full credit goes to the original developers - we've simply ported some functionality to enhance the Elysia ecosystem.
+> Earlier versions adapted runtime type generation from [rolldown-plugin-dts](https://github.com/sxzz/rolldown-plugin-dts).
 
 ## Installation
 
 ```
-bun add elysia-remote-dts
+bun add elysia-remote-dts typescript@^7
 ```
+
+Version 2 requires TypeScript 7 at runtime, including its platform-specific compiler package. Declaration generation uses your TypeScript 7-compatible `tsconfig.json` and needs a writable temporary directory.
 
 ## Usage
 
@@ -99,8 +101,4 @@ export type App = typeof app;
 
 ## Known Limitations
 
-1. Type emission may occasionally return `null` in certain runtime environments (particularly in Distroless). We recommend using `oven/bun` or `oven/bun:alpine` as your base image.
-
-2. The `typescript` package must be available at runtime, not just as a development dependency.
-
-3. For all Elysia instances and controller chaining, it's recommended to chain your routes rather than calling `controller.<METHOD>` on separate lines, as the latter approach won't be properly included in type compilation by TypeScript. ([example](https://github.com/rayriffy/dts-chaining-repro/commit/fb4702ddc11a3973bf51eac753c18c1d606eae4b))
+For all Elysia instances and controller chaining, it's recommended to chain your routes rather than calling `controller.<METHOD>` on separate lines, as the latter approach won't be properly included in type compilation by TypeScript. ([example](https://github.com/rayriffy/dts-chaining-repro/commit/fb4702ddc11a3973bf51eac753c18c1d606eae4b))
