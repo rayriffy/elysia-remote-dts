@@ -1,45 +1,66 @@
 import path from 'node:path'
 import { getTsconfig, parseTsconfig } from 'get-tsconfig'
-import type { Options, OptionsResolved } from './types'
+import type { Options } from './types'
 
-export function resolveOptions({
-  cwd = process.cwd(),
-  tsconfig,
-  compilerOptions = {},
-  dtsInput = false,
-  resolve = false,
-  resolvePaths,
-}: Options): OptionsResolved {
-  if (tsconfig === true || tsconfig == null) {
-    const { config, path } = getTsconfig(cwd) || {}
-    tsconfig = path
-    compilerOptions = {
-      ...config?.compilerOptions,
-      ...compilerOptions,
-    }
-  } else if (typeof tsconfig === 'string') {
-    tsconfig = path.resolve(cwd || process.cwd(), tsconfig)
-    const config = parseTsconfig(tsconfig)
-    compilerOptions = {
-      ...config.compilerOptions,
-      ...compilerOptions,
-    }
-  } else {
-    tsconfig = undefined
+export function resolveOptions(
+  cwd: string,
+  entry: string,
+  { tsconfig, compilerOptions: overrides = {} }: Options
+) {
+  let project: ReturnType<typeof getTsconfig> = null
+  if (typeof tsconfig === 'string') {
+    const configPath = path.resolve(cwd, tsconfig)
+    project = { path: configPath, config: parseTsconfig(configPath) }
+  } else if (tsconfig !== false) {
+    project = getTsconfig(cwd)
   }
 
-  // Always set declarationMap to false since we removed the sourcemap option
-  compilerOptions.declarationMap = false
+  const configDir = project ? path.dirname(project.path) : cwd
+  const inherited = project?.config.compilerOptions
+  const rootDir = overrides.rootDir
+    ? path.resolve(cwd, overrides.rootDir)
+    : inherited?.rootDir
+      ? path.resolve(configDir, inherited.rootDir)
+      : path.parse(entry).root
 
   return {
-    cwd,
-    tsconfig: typeof tsconfig === 'boolean' ? undefined : tsconfig,
-    compilerOptions,
-    isolatedDeclarations: false,
-    sourcemap: false,
-    dtsInput,
-    emitDtsOnly: false,
-    resolve,
-    resolvePaths: resolvePaths ?? !!compilerOptions?.paths,
+    tsconfig: project?.path,
+    compilerOptions: {
+      target: inherited?.target ?? 'esnext',
+      skipLibCheck: inherited?.skipLibCheck ?? true,
+      preserveSymlinks: inherited?.preserveSymlinks ?? true,
+      resolveJsonModule: inherited?.resolveJsonModule ?? true,
+      ...overrides,
+      rootDir,
+      rootDirs: overrides.rootDirs?.map(dir => path.resolve(cwd, dir)),
+      paths:
+        overrides.paths &&
+        Object.fromEntries(
+          Object.entries(overrides.paths).map(([pattern, targets]) => [
+            pattern,
+            targets.map(target => path.resolve(cwd, target)),
+          ])
+        ),
+      typeRoots:
+        overrides.typeRoots?.map(dir => path.resolve(cwd, dir)) ??
+        (!inherited?.typeRoots && (overrides.types ?? inherited?.types)?.length
+          ? getTypeRoots(configDir)
+          : undefined),
+    },
+  }
+}
+
+// A temporary tsconfig is outside the project's node_modules search path.
+function getTypeRoots(configDir: string): string[] {
+  const typeRoots: string[] = []
+  let dir = configDir
+  while (true) {
+    typeRoots.push(
+      path.join(dir, 'node_modules', '@types'),
+      path.join(dir, 'node_modules')
+    )
+    const parent = path.dirname(dir)
+    if (parent === dir) return typeRoots
+    dir = parent
   }
 }

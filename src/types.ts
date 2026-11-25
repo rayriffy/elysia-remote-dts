@@ -42,31 +42,8 @@ export interface Options {
 
   /**
    * The path where the type definitions will be served.
-   * 
+   *
    * @default `/server.d.ts`
    */
   dtsPath?: string
 }
-
-type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
-
-export type OptionsResolved = Overwrite<
-  Required<Options>,
-  {
-    tsconfig: string | undefined
-    isolatedDeclarations: false
-    sourcemap: false
-    emitDtsOnly: false
-  }
->
-
-export interface TsModule {
-  /** `.ts` source code */
-  code: string
-  /** `.ts` file name */
-  id: string
-  isEntry: boolean
-}
-
-/** dts filename -> ts module */
-export type DtsMap = Map<string, TsModule>

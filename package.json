@@ -43,7 +43,7 @@
   ],
   "dependencies": {
     "debug": "4.4.0",
-    "get-tsconfig": "4.10.0"
+    "get-tsconfig": "4.14.3"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -53,12 +53,12 @@
     "@types/debug": "4.1.12",
     "@types/node": "22.15.3",
     "elysia": "1.2.25",
-    "tsdown": "0.12.3",
-    "typescript": "5.8.3",
+    "tsdown": "0.23.7",
+    "typescript": "7.0.2",
     "vitest": "3.1.2"
   },
   "peerDependencies": {
     "elysia": ">= 1.0.0",
-    "typescript": ">=5"
+    "typescript": "^7.0.0"
   }
 }
