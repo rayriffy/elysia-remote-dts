@@ -1,5 +1,15 @@
 # @rayriffy/quick-npm
 
+## 2.0.0
+
+### Major Changes
+
+- 6c24d71: Generate declarations with the TypeScript 7 compiler CLI so the plugin can start and serve types with TypeScript 7. Upgrade the runtime `typescript` peer dependency to version 7 and use a TypeScript 7-compatible `tsconfig.json` when upgrading.
+
+### Patch Changes
+
+- cde2cd8: package now bundled by tsdown
+
 ## 1.0.3
 
 ### Patch Changes
